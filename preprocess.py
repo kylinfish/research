@@ -2,7 +2,8 @@
 import numpy as np
 import cv2
 
-path = '../dataset_flower/image_'
+#path = '../dataset_flower/image_'
+path = '/Users/viplab/Documents/dataset/TEST/image_'
 number_of_types = 5 #類別種類
 type_of_images = 80 #每種類圖片張數
 max_size = number_of_types * type_of_images #總共檔案數量
@@ -18,8 +19,8 @@ def featureExtraction(name, i):
     return (p)
 
 
-def Make_feature_set():
-    feature_vector=str(max_size)+", "+str(3)+", flower_1|flower_2|flower_3|flower_4|flower_5"
+def Make_feature_set(filename,labelStr):
+    feature_vector=str(max_size)+", "+str(3)+", "+labelStr
     for i in range(1, max_size+1):
         index= str(i)
         if (i< 10):
@@ -31,7 +32,7 @@ def Make_feature_set():
         else:
             fullname = path +index + ".jpg"
         feature_vector +=  "\n"+str(featureExtraction(fullname, i)).split("[")[1].split("]")[0]
-    file_RW("feature.txt",True,feature_vector)
+    file_RW(filename,True,feature_vector)
     print "end process of feature collecting "
 
 def file_RW(filename, empty, content):
